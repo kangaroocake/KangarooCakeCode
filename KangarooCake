@@ -1,10 +1,13 @@
-// twitter:https://twitter.com/kangaroocake 
-// telegram:https://t.me/KangarooCake
-// kangaroocake:https://www.kangaroocake.com
+/**
+*twitter:https://twitter.com/kangaroocake 
+*telegram:https://t.me/KangarooCake
+*kangaroocake:https://www.kangaroocake.com
+*github:https://github.com/kangaroocake/KangarooCakeCode
+*/
+
 /**
  *Submitted for verification at BscScan.com on 2021-09-08
 */
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.2;
