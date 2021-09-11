@@ -5,9 +5,6 @@
 *github:https://github.com/kangaroocake/KangarooCakeCode
 */
 
-/**
- *Submitted for verification at BscScan.com on 2021-09-08
-*/
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.6.2;
@@ -16,102 +13,47 @@ pragma solidity ^0.6.2;
  * @dev Interface of the ERC20 standard as defined in the EIP.
  */
 interface IERC20 {
-    /**
-     * @dev Returns the amount of tokens in existence.
-     */
+
     function totalSupply() external view returns (uint256);
 
-    /**
-     * @dev Returns the amount of tokens owned by `account`.
-     */
+
     function balanceOf(address account) external view returns (uint256);
 
-    /**
-     * @dev Moves `amount` tokens from the caller's account to `recipient`.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
+
     function transfer(address recipient, uint256 amount) external returns (bool);
 
-    /**
-     * @dev Returns the remaining number of tokens that `spender` will be
-     * allowed to spend on behalf of `owner` through {transferFrom}. This is
-     * zero by default.
-     *
-     * This value changes when {approve} or {transferFrom} are called.
-     */
+ 
     function allowance(address owner, address spender) external view returns (uint256);
 
-    /**
-     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * IMPORTANT: Beware that changing an allowance with this method brings the risk
-     * that someone may use both the old and the new allowance by unfortunate
-     * transaction ordering. One possible solution to mitigate this race
-     * condition is to first reduce the spender's allowance to 0 and set the
-     * desired value afterwards:
-     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729
-     *
-     * Emits an {Approval} event.
-     */
+
     function approve(address spender, uint256 amount) external returns (bool);
 
-    /**
-     * @dev Moves `amount` tokens from `sender` to `recipient` using the
-     * allowance mechanism. `amount` is then deducted from the caller's
-     * allowance.
-     *
-     * Returns a boolean value indicating whether the operation succeeded.
-     *
-     * Emits a {Transfer} event.
-     */
+
     function transferFrom(
         address sender,
         address recipient,
         uint256 amount
     ) external returns (bool);
 
-    /**
-     * @dev Emitted when `value` tokens are moved from one account (`from`) to
-     * another (`to`).
-     *
-     * Note that `value` may be zero.
-     */
+
     event Transfer(address indexed from, address indexed to, uint256 value);
 
-    /**
-     * @dev Emitted when the allowance of a `spender` for an `owner` is set by
-     * a call to {approve}. `value` is the new allowance.
-     */
+
     event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
 pragma solidity ^0.6.2;
 
 
-/**
- * @dev Interface for the optional metadata functions from the ERC20 standard.
- *
- * _Available since v4.1._
- */
+
 interface IERC20Metadata is IERC20 {
-    /**
-     * @dev Returns the name of the token.
-     */
+ 
     function name() external view returns (string memory);
 
-    /**
-     * @dev Returns the symbol of the token.
-     */
+
     function symbol() external view returns (string memory);
 
-    /**
-     * @dev Returns the decimals places of the token.
-     */
+ 
     function decimals() external view returns (uint8);
 }
 
@@ -355,46 +297,29 @@ contract Ownable is Context {
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-    /**
-     * @dev Initializes the contract setting the deployer as the initial owner.
-     */
     constructor () public {
         address msgSender = _msgSender();
         _owner = msgSender;
         emit OwnershipTransferred(address(0), msgSender);
     }
 
-    /**
-     * @dev Returns the address of the current owner.
-     */
+
     function owner() public view returns (address) {
         return _owner;
     }
 
-    /**
-     * @dev Throws if called by any account other than the owner.
-     */
+
     modifier onlyOwner() {
         require(_owner == _msgSender(), "Ownable: caller is not the owner");
         _;
     }
 
-    /**
-     * @dev Leaves the contract without owner. It will not be possible to call
-     * `onlyOwner` functions anymore. Can only be called by the current owner.
-     *
-     * NOTE: Renouncing ownership will leave the contract without an owner,
-     * thereby removing any functionality that is only available to the owner.
-     */
+
     function renounceOwnership() public virtual onlyOwner {
         emit OwnershipTransferred(_owner, address(0));
         _owner = address(0);
     }
 
-    /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Can only be called by the current owner.
-     */
     function transferOwnership(address newOwner) public virtual onlyOwner {
         require(newOwner != address(0), "Ownable: new owner is the zero address");
         emit OwnershipTransferred(_owner, newOwner);
@@ -405,16 +330,7 @@ contract Ownable is Context {
 pragma solidity ^0.6.2;
 
 library SafeMath {
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `+` operator.
-     *
-     * Requirements:
-     *
-     * - Addition cannot overflow.
-     */
+
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
         require(c >= a, "SafeMath: addition overflow");
@@ -422,30 +338,12 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
+
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
         return sub(a, b, "SafeMath: subtraction overflow");
     }
 
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-     * overflow (when the result is negative).
-     *
-     * Counterpart to Solidity's `-` operator.
-     *
-     * Requirements:
-     *
-     * - Subtraction cannot overflow.
-     */
+
     function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         require(b <= a, errorMessage);
         uint256 c = a - b;
@@ -453,16 +351,7 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on
-     * overflow.
-     *
-     * Counterpart to Solidity's `*` operator.
-     *
-     * Requirements:
-     *
-     * - Multiplication cannot overflow.
-     */
+
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
         // benefit is lost if 'b' is also tested.
@@ -477,34 +366,12 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Returns the integer division of two unsigned integers. Reverts on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
         return div(a, b, "SafeMath: division by zero");
     }
 
-    /**
-     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on
-     * division by zero. The result is rounded towards zero.
-     *
-     * Counterpart to Solidity's `/` operator. Note: this function uses a
-     * `revert` opcode (which leaves remaining gas untouched) while Solidity
-     * uses an invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+
     function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         require(b > 0, errorMessage);
         uint256 c = a / b;
@@ -513,34 +380,11 @@ library SafeMath {
         return c;
     }
 
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * Reverts when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
     function mod(uint256 a, uint256 b) internal pure returns (uint256) {
         return mod(a, b, "SafeMath: modulo by zero");
     }
 
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-     * Reverts with custom message when dividing by zero.
-     *
-     * Counterpart to Solidity's `%` operator. This function uses a `revert`
-     * opcode (which leaves remaining gas untouched) while Solidity uses an
-     * invalid opcode to revert (consuming all remaining gas).
-     *
-     * Requirements:
-     *
-     * - The divisor cannot be zero.
-     */
+
     function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
         require(b != 0, errorMessage);
         return a % b;
@@ -574,10 +418,7 @@ SOFTWARE.
 
 pragma solidity ^0.6.2;
 
-/**
- * @title SafeMathInt
- * @dev Math operations for int256 with overflow safety checks.
- */
+
 library SafeMathInt {
     int256 private constant MIN_INT256 = int256(1) << 255;
     int256 private constant MAX_INT256 = ~(int256(1) << 255);
@@ -594,9 +435,6 @@ library SafeMathInt {
         return c;
     }
 
-    /**
-     * @dev Division of two int256 variables and fails on overflow.
-     */
     function div(int256 a, int256 b) internal pure returns (int256) {
         // Prevent overflow when dividing MIN_INT256 by -1
         require(b != -1 || a != MIN_INT256);
@@ -605,27 +443,21 @@ library SafeMathInt {
         return a / b;
     }
 
-    /**
-     * @dev Subtracts two int256 variables and fails on overflow.
-     */
+
     function sub(int256 a, int256 b) internal pure returns (int256) {
         int256 c = a - b;
         require((b >= 0 && c <= a) || (b < 0 && c > a));
         return c;
     }
 
-    /**
-     * @dev Adds two int256 variables and fails on overflow.
-     */
+
     function add(int256 a, int256 b) internal pure returns (int256) {
         int256 c = a + b;
         require((b >= 0 && c >= a) || (b < 0 && c < a));
         return c;
     }
 
-    /**
-     * @dev Converts to absolute value, and fails on overflow.
-     */
+
     function abs(int256 a) internal pure returns (int256) {
         require(a != MIN_INT256);
         return a < 0 ? -a : a;
@@ -640,10 +472,6 @@ library SafeMathInt {
 
 pragma solidity ^0.6.2;
 
-/**
- * @title SafeMathUint
- * @dev Math operations with safety checks that revert on error
- */
 library SafeMathUint {
   function toInt256Safe(uint256 a) internal pure returns (int256) {
     int256 b = int256(a);
@@ -717,30 +545,7 @@ library IterableMapping {
 
 pragma solidity ^0.6.2;
 
-/**
- * @dev Implementation of the {IERC20} interface.
- *
- * This implementation is agnostic to the way tokens are created. This means
- * that a supply mechanism has to be added in a derived contract using {_mint}.
- * For a generic mechanism see {ERC20PresetMinterPauser}.
- *
- * TIP: For a detailed writeup see our guide
- * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
- * to implement supply mechanisms].
- *
- * We have followed general OpenZeppelin guidelines: functions revert instead
- * of returning `false` on failure. This behavior is nonetheless conventional
- * and does not conflict with the expectations of ERC20 applications.
- *
- * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
- * This allows applications to reconstruct the allowance for all accounts just
- * by listening to said events. Other implementations of the EIP may not emit
- * these events, as it isn't required by the specification.
- *
- * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
- * functions have been added to mitigate the well-known issues around setting
- * allowances. See {IERC20-approve}.
- */
+
 contract ERC20 is Context, IERC20, IERC20Metadata {
     using SafeMath for uint256;
 
@@ -753,111 +558,54 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     string private _name;
     string private _symbol;
 
-    /**
-     * @dev Sets the values for {name} and {symbol}.
-     *
-     * The default value of {decimals} is 18. To select a different value for
-     * {decimals} you should overload it.
-     *
-     * All two of these values are immutable: they can only be set once during
-     * construction.
-     */
+
     constructor(string memory name_, string memory symbol_) public {
         _name = name_;
         _symbol = symbol_;
     }
 
-    /**
-     * @dev Returns the name of the token.
-     */
+
     function name() public view virtual override returns (string memory) {
         return _name;
     }
 
-    /**
-     * @dev Returns the symbol of the token, usually a shorter version of the
-     * name.
-     */
+ 
     function symbol() public view virtual override returns (string memory) {
         return _symbol;
     }
 
-    /**
-     * @dev Returns the number of decimals used to get its user representation.
-     * For example, if `decimals` equals `2`, a balance of `505` tokens should
-     * be displayed to a user as `5,05` (`505 / 10 ** 2`).
-     *
-     * Tokens usually opt for a value of 18, imitating the relationship between
-     * Ether and Wei. This is the value {ERC20} uses, unless this function is
-     * overridden;
-     *
-     * NOTE: This information is only used for _display_ purposes: it in
-     * no way affects any of the arithmetic of the contract, including
-     * {IERC20-balanceOf} and {IERC20-transfer}.
-     */
+
     function decimals() public view virtual override returns (uint8) {
         return 18;
     }
 
-    /**
-     * @dev See {IERC20-totalSupply}.
-     */
+
     function totalSupply() public view virtual override returns (uint256) {
         return _totalSupply;
     }
 
-    /**
-     * @dev See {IERC20-balanceOf}.
-     */
+
     function balanceOf(address account) public view virtual override returns (uint256) {
         return _balances[account];
     }
 
-    /**
-     * @dev See {IERC20-transfer}.
-     *
-     * Requirements:
-     *
-     * - `recipient` cannot be the zero address.
-     * - the caller must have a balance of at least `amount`.
-     */
+
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
 
-    /**
-     * @dev See {IERC20-allowance}.
-     */
     function allowance(address owner, address spender) public view virtual override returns (uint256) {
         return _allowances[owner][spender];
     }
 
-    /**
-     * @dev See {IERC20-approve}.
-     *
-     * Requirements:
-     *
-     * - `spender` cannot be the zero address.
-     */
+
     function approve(address spender, uint256 amount) public virtual override returns (bool) {
         _approve(_msgSender(), spender, amount);
         return true;
     }
 
-    /**
-     * @dev See {IERC20-transferFrom}.
-     *
-     * Emits an {Approval} event indicating the updated allowance. This is not
-     * required by the EIP. See the note at the beginning of {ERC20}.
-     *
-     * Requirements:
-     *
-     * - `sender` and `recipient` cannot be the zero address.
-     * - `sender` must have a balance of at least `amount`.
-     * - the caller must have allowance for ``sender``'s tokens of at least
-     * `amount`.
-     */
+
     function transferFrom(
         address sender,
         address recipient,
@@ -868,56 +616,18 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         return true;
     }
 
-    /**
-     * @dev Atomically increases the allowance granted to `spender` by the caller.
-     *
-     * This is an alternative to {approve} that can be used as a mitigation for
-     * problems described in {IERC20-approve}.
-     *
-     * Emits an {Approval} event indicating the updated allowance.
-     *
-     * Requirements:
-     *
-     * - `spender` cannot be the zero address.
-     */
+
     function increaseAllowance(address spender, uint256 addedValue) public virtual returns (bool) {
         _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
         return true;
     }
 
-    /**
-     * @dev Atomically decreases the allowance granted to `spender` by the caller.
-     *
-     * This is an alternative to {approve} that can be used as a mitigation for
-     * problems described in {IERC20-approve}.
-     *
-     * Emits an {Approval} event indicating the updated allowance.
-     *
-     * Requirements:
-     *
-     * - `spender` cannot be the zero address.
-     * - `spender` must have allowance for the caller of at least
-     * `subtractedValue`.
-     */
+
     function decreaseAllowance(address spender, uint256 subtractedValue) public virtual returns (bool) {
         _approve(_msgSender(), spender, _allowances[_msgSender()][spender].sub(subtractedValue, "ERC20: decreased allowance below zero"));
         return true;
     }
 
-    /**
-     * @dev Moves tokens `amount` from `sender` to `recipient`.
-     *
-     * This is internal function is equivalent to {transfer}, and can be used to
-     * e.g. implement automatic token fees, slashing mechanisms, etc.
-     *
-     * Emits a {Transfer} event.
-     *
-     * Requirements:
-     *
-     * - `sender` cannot be the zero address.
-     * - `recipient` cannot be the zero address.
-     * - `sender` must have a balance of at least `amount`.
-     */
     function _transfer(
         address sender,
         address recipient,
@@ -933,15 +643,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         emit Transfer(sender, recipient, amount);
     }
 
-    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
-     * the total supply.
-     *
-     * Emits a {Transfer} event with `from` set to the zero address.
-     *
-     * Requirements:
-     *
-     * - `account` cannot be the zero address.
-     */
+
     function _mint(address account, uint256 amount) internal virtual {
         require(account != address(0), "ERC20: mint to the zero address");
 
@@ -952,17 +654,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         emit Transfer(address(0), account, amount);
     }
 
-    /**
-     * @dev Destroys `amount` tokens from `account`, reducing the
-     * total supply.
-     *
-     * Emits a {Transfer} event with `to` set to the zero address.
-     *
-     * Requirements:
-     *
-     * - `account` cannot be the zero address.
-     * - `account` must have at least `amount` tokens.
-     */
+
     function _burn(address account, uint256 amount) internal virtual {
         require(account != address(0), "ERC20: burn from the zero address");
 
@@ -973,19 +665,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         emit Transfer(account, address(0), amount);
     }
 
-    /**
-     * @dev Sets `amount` as the allowance of `spender` over the `owner` s tokens.
-     *
-     * This internal function is equivalent to `approve`, and can be used to
-     * e.g. set automatic allowances for certain subsystems, etc.
-     *
-     * Emits an {Approval} event.
-     *
-     * Requirements:
-     *
-     * - `owner` cannot be the zero address.
-     * - `spender` cannot be the zero address.
-     */
+
     function _approve(
         address owner,
         address spender,
@@ -998,20 +678,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         emit Approval(owner, spender, amount);
     }
 
-    /**
-     * @dev Hook that is called before any transfer of tokens. This includes
-     * minting and burning.
-     *
-     * Calling conditions:
-     *
-     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
-     * will be to transferred to `to`.
-     * - when `from` is zero, `amount` tokens will be minted for `to`.
-     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
-     * - `from` and `to` are never both zero.
-     *
-     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-     */
+
     function _beforeTokenTransfer(
         address from,
         address to,
@@ -1021,32 +688,22 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
 
 pragma solidity ^0.6.2;
 
-/// @title Dividend-Paying Token Interface
-/// @author Roger Wu (https://github.com/roger-wu)
-/// @dev An interface for a dividend-paying token contract.
+
 interface DividendPayingTokenInterface {
-  /// @notice View the amount of dividend in wei that an address can withdraw.
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` can withdraw.
+
   function dividendOf(address _owner) external view returns(uint256);
 
 
-  /// @notice Withdraws the ether distributed to the sender.
-  /// @dev SHOULD transfer `dividendOf(msg.sender)` wei to `msg.sender`, and `dividendOf(msg.sender)` SHOULD be 0 after the transfer.
-  ///  MUST emit a `DividendWithdrawn` event if the amount of ether transferred is greater than 0.
+
   function withdrawDividend() external;
 
-  /// @dev This event MUST emit when ether is distributed to token holders.
-  /// @param from The address which sends ether to this contract.
-  /// @param weiAmount The amount of distributed ether in wei.
+
   event DividendsDistributed(
     address indexed from,
     uint256 weiAmount
   );
 
-  /// @dev This event MUST emit when an address withdraws their dividend.
-  /// @param to The address which withdraws ether from this contract.
-  /// @param weiAmount The amount of withdrawn ether in wei.
+
   event DividendWithdrawn(
     address indexed to,
     uint256 weiAmount
@@ -1056,61 +713,36 @@ interface DividendPayingTokenInterface {
 pragma solidity ^0.6.2;
 
 
-/// @title Dividend-Paying Token Optional Interface
-/// @author Roger Wu (https://github.com/roger-wu)
-/// @dev OPTIONAL functions for a dividend-paying token contract.
+
 interface DividendPayingTokenOptionalInterface {
-  /// @notice View the amount of dividend in wei that an address can withdraw.
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` can withdraw.
+
   function withdrawableDividendOf(address _owner) external view returns(uint256);
 
-  /// @notice View the amount of dividend in wei that an address has withdrawn.
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` has withdrawn.
+
   function withdrawnDividendOf(address _owner) external view returns(uint256);
 
-  /// @notice View the amount of dividend in wei that an address has earned in total.
-  /// @dev accumulativeDividendOf(_owner) = withdrawableDividendOf(_owner) + withdrawnDividendOf(_owner)
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` has earned in total.
+
   function accumulativeDividendOf(address _owner) external view returns(uint256);
 }
 
 
 pragma solidity ^0.6.2;
 
-/// @title Dividend-Paying Token
-/// @author Roger Wu (https://github.com/roger-wu)
-/// @dev A mintable ERC20 token that allows anyone to pay and distribute ether
-///  to token holders as dividends and allows token holders to withdraw their dividends.
-///  Reference: the source code of PoWH3D: https://etherscan.io/address/0xB3775fB83F7D12A36E0475aBdD1FCA35c091efBe#code
+
 contract DividendPayingToken is ERC20, Ownable, DividendPayingTokenInterface, DividendPayingTokenOptionalInterface {
   using SafeMath for uint256;
   using SafeMathUint for uint256;
   using SafeMathInt for int256;
 
-  address public immutable CAKE = address(0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82); //#CAKE地址
+  address public immutable CAKE = address(0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82); 
 
 
-  // With `magnitude`, we can properly distribute dividends even if the amount of received ether is small.
-  // For more discussion about choosing the value of `magnitude`,
-  //  see https://github.com/ethereum/EIPs/issues/1726#issuecomment-472352728
+
   uint256 constant internal magnitude = 2**128;
 
   uint256 internal magnifiedDividendPerShare;
 
-  // About dividendCorrection:
-  // If the token balance of a `_user` is never changed, the dividend of `_user` can be computed with:
-  //   `dividendOf(_user) = dividendPerShare * balanceOf(_user)`.
-  // When `balanceOf(_user)` is changed (via minting/burning/transferring tokens),
-  //   `dividendOf(_user)` should not be changed,
-  //   but the computed value of `dividendPerShare * balanceOf(_user)` is changed.
-  // To keep the `dividendOf(_user)` unchanged, we add a correction term:
-  //   `dividendOf(_user) = dividendPerShare * balanceOf(_user) + dividendCorrectionOf(_user)`,
-  //   where `dividendCorrectionOf(_user)` is updated whenever `balanceOf(_user)` is changed:
-  //   `dividendCorrectionOf(_user) = dividendPerShare * (old balanceOf(_user)) - (new balanceOf(_user))`.
-  // So now `dividendOf(_user)` returns the same value before and after `balanceOf(_user)` is changed.
+
   mapping(address => int256) internal magnifiedDividendCorrections;
   mapping(address => uint256) internal withdrawnDividends;
 
@@ -1134,14 +766,12 @@ contract DividendPayingToken is ERC20, Ownable, DividendPayingTokenInterface, Di
     }
   }
 
-  /// @notice Withdraws the ether distributed to the sender.
-  /// @dev It emits a `DividendWithdrawn` event if the amount of withdrawn ether is greater than 0.
+
   function withdrawDividend() public virtual override {
     _withdrawDividendOfUser(msg.sender);
   }
 
-  /// @notice Withdraws the ether distributed to the sender.
-  /// @dev It emits a `DividendWithdrawn` event if the amount of withdrawn ether is greater than 0.
+
  function _withdrawDividendOfUser(address payable user) internal returns (uint256) {
     uint256 _withdrawableDividend = withdrawableDividendOf(user);
     if (_withdrawableDividend > 0) {
@@ -1161,43 +791,29 @@ contract DividendPayingToken is ERC20, Ownable, DividendPayingTokenInterface, Di
   }
 
 
-  /// @notice View the amount of dividend in wei that an address can withdraw.
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` can withdraw.
+
   function dividendOf(address _owner) public view override returns(uint256) {
     return withdrawableDividendOf(_owner);
   }
 
-  /// @notice View the amount of dividend in wei that an address can withdraw.
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` can withdraw.
+
   function withdrawableDividendOf(address _owner) public view override returns(uint256) {
     return accumulativeDividendOf(_owner).sub(withdrawnDividends[_owner]);
   }
 
-  /// @notice View the amount of dividend in wei that an address has withdrawn.
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` has withdrawn.
+
   function withdrawnDividendOf(address _owner) public view override returns(uint256) {
     return withdrawnDividends[_owner];
   }
 
 
-  /// @notice View the amount of dividend in wei that an address has earned in total.
-  /// @dev accumulativeDividendOf(_owner) = withdrawableDividendOf(_owner) + withdrawnDividendOf(_owner)
-  /// = (magnifiedDividendPerShare * balanceOf(_owner) + magnifiedDividendCorrections[_owner]) / magnitude
-  /// @param _owner The address of a token holder.
-  /// @return The amount of dividend in wei that `_owner` has earned in total.
+
   function accumulativeDividendOf(address _owner) public view override returns(uint256) {
     return magnifiedDividendPerShare.mul(balanceOf(_owner)).toInt256Safe()
       .add(magnifiedDividendCorrections[_owner]).toUint256Safe() / magnitude;
   }
 
-  /// @dev Internal function that transfer tokens from one address to another.
-  /// Update magnifiedDividendCorrections to keep dividends unchanged.
-  /// @param from The address to transfer from.
-  /// @param to The address to transfer to.
-  /// @param value The amount to be transferred.
+
   function _transfer(address from, address to, uint256 value) internal virtual override {
     require(false);
 
@@ -1206,10 +822,7 @@ contract DividendPayingToken is ERC20, Ownable, DividendPayingTokenInterface, Di
     magnifiedDividendCorrections[to] = magnifiedDividendCorrections[to].sub(_magCorrection);
   }
 
-  /// @dev Internal function that mints tokens to an account.
-  /// Update magnifiedDividendCorrections to keep dividends unchanged.
-  /// @param account The account that will receive the created tokens.
-  /// @param value The amount that will be created.
+
   function _mint(address account, uint256 value) internal override {
     super._mint(account, value);
 
@@ -1217,10 +830,7 @@ contract DividendPayingToken is ERC20, Ownable, DividendPayingTokenInterface, Di
       .sub( (magnifiedDividendPerShare.mul(value)).toInt256Safe() );
   }
 
-  /// @dev Internal function that burns an amount of the token of a given account.
-  /// Update magnifiedDividendCorrections to keep dividends unchanged.
-  /// @param account The account whose tokens will be burnt.
-  /// @param value The amount that will be burnt.
+
   function _burn(address account, uint256 value) internal override {
     super._burn(account, value);
 
@@ -1243,7 +853,7 @@ contract DividendPayingToken is ERC20, Ownable, DividendPayingTokenInterface, Di
 
 pragma solidity ^0.6.2;
 
-contract EARNCAKE is ERC20, Ownable {
+contract KCake is ERC20, Ownable {
     using SafeMath for uint256;
 
     IUniswapV2Router02 public uniswapV2Router;
@@ -1251,33 +861,32 @@ contract EARNCAKE is ERC20, Ownable {
 
     bool private swapping;
 
-    EARNCAKEDividendTracker public dividendTracker;
+    KCakeDividendTracker public dividendTracker;
 
     address public deadWallet = 0x000000000000000000000000000000000000dEaD;
 
     address public immutable CAKE = address(0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82); 
 
-    uint256 public swapTokensAtAmount = 2000000 * (10**18);
+    uint256 public swapTokensAtAmount = 20000000 * (10**18);
     
     mapping(address => bool) public _isBlacklisted;
 
-    uint256 public CAKERewardsFee = 10;
-    uint256 public liquidityFee = 1;
-    uint256 public marketingFee = 5;
+    uint256 public CAKERewardsFee = 7;
+    uint256 public liquidityFee = 4;
+    uint256 public marketingFee = 7;
     uint256 public totalFees = CAKERewardsFee.add(liquidityFee).add(marketingFee);
 
-    address public _marketingWalletAddress = 0xC6B4bD8D3876B4b6d210EC5b1b8a0Ef7969E122F;
+    address public _marketingWalletAddress = 0x965Af0E6619c1FD2115C4502D6Eaaf210504f880;
 
 
-    // use by default 300,000 gas to process auto-claiming dividends
+
     uint256 public gasForProcessing = 300000;
 
-     // exlcude from fees and max transaction amount
+
     mapping (address => bool) private _isExcludedFromFees;
 
 
-    // store addresses that a automatic market maker pairs. Any transfer *to* these addresses
-    // could be subject to a maximum transfer amount
+
     mapping (address => bool) public automatedMarketMakerPairs;
 
     event UpdateDividendTracker(address indexed newAddress, address indexed oldAddress);
@@ -1313,13 +922,13 @@ contract EARNCAKE is ERC20, Ownable {
     	address indexed processor
     );
 
-    constructor() public ERC20("EARNCAKE", "EARNCAKE") {
+    constructor() public ERC20("KangarooCake", "KCake") {
 
-    	dividendTracker = new EARNCAKEDividendTracker();
+    	dividendTracker = new KCakeDividendTracker();
 
 
     	IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
-         // Create a uniswap pair for this new token
+
         address _uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory())
             .createPair(address(this), _uniswapV2Router.WETH());
 
@@ -1328,23 +937,20 @@ contract EARNCAKE is ERC20, Ownable {
 
         _setAutomatedMarketMakerPair(_uniswapV2Pair, true);
 
-        // exclude from receiving dividends
+
         dividendTracker.excludeFromDividends(address(dividendTracker));
         dividendTracker.excludeFromDividends(address(this));
         dividendTracker.excludeFromDividends(owner());
         dividendTracker.excludeFromDividends(deadWallet);
         dividendTracker.excludeFromDividends(address(_uniswapV2Router));
 
-        // exclude from paying fees or having max transaction amount
+
         excludeFromFees(owner(), true);
         excludeFromFees(_marketingWalletAddress, true);
         excludeFromFees(address(this), true);
 
-        /*
-            _mint is an internal function in ERC20.sol that is only called here,
-            and CANNOT be called ever again
-        */
-        _mint(owner(), 100000000000 * (10**18));//#总币量
+
+        _mint(owner(), 100000000000 * (10**18));
     }
 
     receive() external payable {
@@ -1352,11 +958,11 @@ contract EARNCAKE is ERC20, Ownable {
   	}
 
     function updateDividendTracker(address newAddress) public onlyOwner {
-        require(newAddress != address(dividendTracker), "EARNCAKE: The dividend tracker already has that address");
+        require(newAddress != address(dividendTracker), "KCake: The dividend tracker already has that address");
 
-        EARNCAKEDividendTracker newDividendTracker = EARNCAKEDividendTracker(payable(newAddress));
+        KCakeDividendTracker newDividendTracker = KCakeDividendTracker(payable(newAddress));
 
-        require(newDividendTracker.owner() == address(this), "EARNCAKE: The new dividend tracker must be owned by the EARNCAKE token contract");
+        require(newDividendTracker.owner() == address(this), "KCake: The new dividend tracker must be owned by the KCake token contract");
 
         newDividendTracker.excludeFromDividends(address(newDividendTracker));
         newDividendTracker.excludeFromDividends(address(this));
@@ -1369,7 +975,7 @@ contract EARNCAKE is ERC20, Ownable {
     }
 
     function updateUniswapV2Router(address newAddress) public onlyOwner {
-        require(newAddress != address(uniswapV2Router), "EARNCAKE: The router already has that address");
+        require(newAddress != address(uniswapV2Router), "KCake: The router already has that address");
         emit UpdateUniswapV2Router(newAddress, address(uniswapV2Router));
         uniswapV2Router = IUniswapV2Router02(newAddress);
         address _uniswapV2Pair = IUniswapV2Factory(uniswapV2Router.factory())
@@ -1378,7 +984,7 @@ contract EARNCAKE is ERC20, Ownable {
     }
 
     function excludeFromFees(address account, bool excluded) public onlyOwner {
-        require(_isExcludedFromFees[account] != excluded, "EARNCAKE: Account is already the value of 'excluded'");
+        require(_isExcludedFromFees[account] != excluded, "KCake: Account is already the value of 'excluded'");
         _isExcludedFromFees[account] = excluded;
 
         emit ExcludeFromFees(account, excluded);
@@ -1414,7 +1020,7 @@ contract EARNCAKE is ERC20, Ownable {
 
 
     function setAutomatedMarketMakerPair(address pair, bool value) public onlyOwner {
-        require(pair != uniswapV2Pair, "EARNCAKE: The PancakeSwap pair cannot be removed from automatedMarketMakerPairs");
+        require(pair != uniswapV2Pair, "KCake: The PancakeSwap pair cannot be removed from automatedMarketMakerPairs");
 
         _setAutomatedMarketMakerPair(pair, value);
     }
@@ -1425,7 +1031,7 @@ contract EARNCAKE is ERC20, Ownable {
 
 
     function _setAutomatedMarketMakerPair(address pair, bool value) private {
-        require(automatedMarketMakerPairs[pair] != value, "EARNCAKE: Automated market maker pair is already set to that value");
+        require(automatedMarketMakerPairs[pair] != value, "KCake: Automated market maker pair is already set to that value");
         automatedMarketMakerPairs[pair] = value;
 
         if(value) {
@@ -1437,8 +1043,8 @@ contract EARNCAKE is ERC20, Ownable {
 
 
     function updateGasForProcessing(uint256 newValue) public onlyOwner {
-        require(newValue >= 200000 && newValue <= 500000, "EARNCAKE: gasForProcessing must be between 200,000 and 500,000");
-        require(newValue != gasForProcessing, "EARNCAKE: Cannot update gasForProcessing to same value");
+        require(newValue >= 200000 && newValue <= 500000, "KCake: gasForProcessing must be between 200,000 and 500,000");
+        require(newValue != gasForProcessing, "KCake: Cannot update gasForProcessing to same value");
         emit GasForProcessingUpdated(newValue, gasForProcessing);
         gasForProcessing = newValue;
     }
@@ -1556,7 +1162,7 @@ contract EARNCAKE is ERC20, Ownable {
 
         bool takeFee = !swapping;
 
-        // if any account belongs to _isExcludedFromFee account then remove the fee
+
         if(_isExcludedFromFees[from] || _isExcludedFromFees[to]) {
             takeFee = false;
         }
@@ -1598,23 +1204,20 @@ contract EARNCAKE is ERC20, Ownable {
     }
 
     function swapAndLiquify(uint256 tokens) private {
-       // split the contract balance into halves
+
         uint256 half = tokens.div(2);
         uint256 otherHalf = tokens.sub(half);
 
-        // capture the contract's current ETH balance.
-        // this is so that we can capture exactly the amount of ETH that the
-        // swap creates, and not make the liquidity event include any ETH that
-        // has been manually sent to the contract
+
         uint256 initialBalance = address(this).balance;
 
-        // swap tokens for ETH
-        swapTokensForEth(half); // <- this breaks the ETH -> HATE swap when swap+liquify is triggered
 
-        // how much ETH did we just swap into?
+        swapTokensForEth(half); 
+
+
         uint256 newBalance = address(this).balance.sub(initialBalance);
 
-        // add liquidity to uniswap
+
         addLiquidity(otherHalf, newBalance);
 
         emit SwapAndLiquify(half, newBalance, otherHalf);
@@ -1624,17 +1227,17 @@ contract EARNCAKE is ERC20, Ownable {
     function swapTokensForEth(uint256 tokenAmount) private {
 
 
-        // generate the uniswap pair path of token -> weth
+
         address[] memory path = new address[](2);
         path[0] = address(this);
         path[1] = uniswapV2Router.WETH();
 
         _approve(address(this), address(uniswapV2Router), tokenAmount);
 
-        // make the swap
+
         uniswapV2Router.swapExactTokensForETHSupportingFeeOnTransferTokens(
             tokenAmount,
-            0, // accept any amount of ETH
+            0, 
             path,
             address(this),
             block.timestamp
@@ -1651,7 +1254,6 @@ contract EARNCAKE is ERC20, Ownable {
 
         _approve(address(this), address(uniswapV2Router), tokenAmount);
 
-        // make the swap
         uniswapV2Router.swapExactTokensForTokensSupportingFeeOnTransferTokens(
             tokenAmount,
             0,
@@ -1663,7 +1265,7 @@ contract EARNCAKE is ERC20, Ownable {
 
     function addLiquidity(uint256 tokenAmount, uint256 ethAmount) private {
 
-        // approve token transfer to cover all possible scenarios
+
         _approve(address(this), address(uniswapV2Router), tokenAmount);
 
         // add the liquidity
@@ -1690,7 +1292,7 @@ contract EARNCAKE is ERC20, Ownable {
     }
 }
 
-contract EARNCAKEDividendTracker is Ownable, DividendPayingToken {
+contract KCakeDividendTracker is Ownable, DividendPayingToken {
     using SafeMath for uint256;
     using SafeMathInt for int256;
     using IterableMapping for IterableMapping.Map;
@@ -1710,17 +1312,17 @@ contract EARNCAKEDividendTracker is Ownable, DividendPayingToken {
 
     event Claim(address indexed account, uint256 amount, bool indexed automatic);
 
-    constructor() public DividendPayingToken("EARNCAKE_Dividen_Tracker", "EARNCAKE_Dividend_Tracker") {
+    constructor() public DividendPayingToken("KCake_Dividen_Tracker", "KCake_Dividend_Tracker") {
     	claimWait = 3600;
-        minimumTokenBalanceForDividends = 200000 * (10**18); //must hold 200000+ tokens
+        minimumTokenBalanceForDividends = 5000000 * (10**18); 
     }
 
     function _transfer(address, address, uint256) internal override {
-        require(false, "EARNCAKE_Dividend_Tracker: No transfers allowed");
+        require(false, "KCake_Dividend_Tracker: No transfers allowed");
     }
 
     function withdrawDividend() public override {
-        require(false, "EARNCAKE_Dividend_Tracker: withdrawDividend disabled. Use the 'claim' function on the main EARNCAKE contract.");
+        require(false, "KCake_Dividend_Tracker: withdrawDividend disabled. Use the 'claim' function on the main KCake contract.");
     }
 
     function excludeFromDividends(address account) external onlyOwner {
@@ -1734,8 +1336,8 @@ contract EARNCAKEDividendTracker is Ownable, DividendPayingToken {
     }
 
     function updateClaimWait(uint256 newClaimWait) external onlyOwner {
-        require(newClaimWait >= 3600 && newClaimWait <= 86400, "EARNCAKE_Dividend_Tracker: claimWait must be updated to between 1 and 24 hours");
-        require(newClaimWait != claimWait, "EARNCAKE_Dividend_Tracker: Cannot update claimWait to same value");
+        require(newClaimWait >= 3600 && newClaimWait <= 86400, "KCake_Dividend_Tracker: claimWait must be updated to between 1 and 24 hours");
+        require(newClaimWait != claimWait, "KCake_Dividend_Tracker: Cannot update claimWait to same value");
         emit ClaimWaitUpdated(newClaimWait, claimWait);
         claimWait = newClaimWait;
     }
