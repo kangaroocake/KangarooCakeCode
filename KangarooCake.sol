@@ -1,4 +1,12 @@
 /**
+ *Submitted for verification at BscScan.com on 2021-09-16
+*/
+
+/**
+ *Submitted for verification at BscScan.com on 2021-09-11
+*/
+
+/**
 *twitter:https://twitter.com/kangaroocake 
 *telegram:https://t.me/KangarooCake
 *kangaroocake:https://www.kangaroocake.com
@@ -872,11 +880,11 @@ contract KCake is ERC20, Ownable {
     mapping(address => bool) public _isBlacklisted;
 
     uint256 public CAKERewardsFee = 7;
-    uint256 public liquidityFee = 4;
+    uint256 public liquidityFee = 1;
     uint256 public marketingFee = 7;
     uint256 public totalFees = CAKERewardsFee.add(liquidityFee).add(marketingFee);
 
-    address public _marketingWalletAddress = 0x965Af0E6619c1FD2115C4502D6Eaaf210504f880;
+    address public _marketingWalletAddress = 0xabA8fCB61c53Bb7b9A80E4BA65AaeD8712397aB7;
 
 
 
